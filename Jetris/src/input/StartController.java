@@ -3,13 +3,13 @@ package input;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import canvas.GameCanvas;
-import canvas.logicControllers.JetrisEventDispatcher;
+import coreGame.gameLogic.JetrisGame;
+import coreGame.gameLogic.logicControllers.JetrisEventDispatcher;
 
 public class StartController implements ActionListener{
-	private GameCanvas gc;
-	
-	public StartController(GameCanvas gc) {
+	private JetrisGame gc;
+
+	public StartController(JetrisGame gc) {
 		this.gc = gc;
 	}
 

@@ -3,13 +3,13 @@ package input;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import canvas.GameCanvas;
-import canvas.logicControllers.JetrisEventDispatcher;
+import coreGame.gameLogic.JetrisGame;
+import coreGame.gameLogic.logicControllers.JetrisEventDispatcher;
 
 public class TickController implements ActionListener{
-	private GameCanvas gc;
-	
-	public TickController(GameCanvas gc) {
+	private JetrisGame gc;
+
+	public TickController(JetrisGame gc) {
 		this.gc = gc;
 	}
 

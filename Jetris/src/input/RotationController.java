@@ -3,15 +3,14 @@ package input;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import tetrominos.base.TetrominoDirection;
-import canvas.GameCanvas;
-import canvas.logicControllers.JetrisEventDispatcher;
+import coreGame.gameLogic.JetrisGame;
+import coreGame.gameLogic.logicControllers.JetrisEventDispatcher;
 
 public class RotationController implements ActionListener{
-	private GameCanvas gc;
+	private JetrisGame gc;
 	private boolean clockwise;
-	
-	public RotationController(GameCanvas gc, boolean clockwise) {
+
+	public RotationController(JetrisGame gc, boolean clockwise) {
 		this.gc = gc;
 		this.clockwise = clockwise;
 	}

@@ -3,14 +3,14 @@ package input;
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;
 
-import tetrominos.base.TetrominoDirection;
-import canvas.GameCanvas;
-import canvas.logicControllers.JetrisEventDispatcher;
+import coreGame.gameLogic.JetrisGame;
+import coreGame.tetrominos.base.TetrominoDirection;
+import coreGame.gameLogic.logicControllers.JetrisEventDispatcher;
 
-public class JetrisKeyEventDispatcher implements KeyEventDispatcher {
-	GameCanvas gc;
-	
-	public JetrisKeyEventDispatcher(GameCanvas gc) {
+public class JetrisKeyEventDispatcher implements java.awt.KeyEventDispatcher {
+	JetrisGame gc;
+
+	public JetrisKeyEventDispatcher(JetrisGame gc) {
 		this.gc = gc;
 	}
 

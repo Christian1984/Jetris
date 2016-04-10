@@ -3,15 +3,15 @@ package input;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import tetrominos.base.TetrominoDirection;
-import canvas.GameCanvas;
-import canvas.logicControllers.JetrisEventDispatcher;
+import coreGame.tetrominos.base.TetrominoDirection;
+import coreGame.gameLogic.JetrisGame;
+import coreGame.gameLogic.logicControllers.JetrisEventDispatcher;
 
 public class MoveController implements ActionListener{
-	private GameCanvas gc;
+	private JetrisGame gc;
 	private TetrominoDirection dir;
-	
-	public MoveController(GameCanvas gc, TetrominoDirection dir) {
+
+	public MoveController(JetrisGame gc, TetrominoDirection dir) {
 		this.gc = gc;
 		this.dir = dir;
 	}
