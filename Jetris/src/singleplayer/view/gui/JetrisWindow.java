@@ -71,14 +71,13 @@ public class JetrisWindow extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-                jetrisGame.shutdown();
+                // TODO Auto-generated method stub
             }
 
             @Override
 			public void windowClosed(WindowEvent e) {
 				// TODO Auto-generated method stub
                 game.shutdown();
-
                 System.exit(0);
             }
 			
