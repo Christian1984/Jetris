@@ -17,8 +17,11 @@ public class JetrisWindow extends JFrame {
     //private ButtonController buttonContoller;
 
     protected JPanel infoPanel;
+    protected JetrisGame game;
 
     public JetrisWindow(JetrisGame jetrisGame) {
+        this.game = jetrisGame;
+
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setSize(800, 600);
@@ -74,8 +77,10 @@ public class JetrisWindow extends JFrame {
             @Override
 			public void windowClosed(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
-			}
+                game.shutdown();
+
+                System.exit(0);
+            }
 			
 			@Override
 			public void windowActivated(WindowEvent e) {

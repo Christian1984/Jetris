@@ -17,11 +17,14 @@ public class MultiplayerStatsTableView extends JPanel implements MultiplayerStat
 
         dataPanel = new JPanel(new GridLayout(0, 3, 2, 2));
         add(dataPanel, BorderLayout.NORTH);
-        //setLayout(new GridLayout(0, 3));
     }
 
     @Override
-    public void statsChanged(ArrayList<PlayerDump> playersDump) {
+    public synchronized void statsChanged(ArrayList<PlayerDump> playersDump) {
+        for (PlayerDump dump : playersDump) {
+            System.out.println(dump.toString());
+        }
+
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -40,7 +43,8 @@ public class MultiplayerStatsTableView extends JPanel implements MultiplayerStat
                     dataPanel.add(new JLabel("" + dump.getLevel()));
                 }
 
-                //repaint();
+                revalidate();
+                repaint();
             }
         };
 

@@ -49,13 +49,24 @@ public class MultiplayerServiceImpl extends UnicastRemoteObject implements Multi
 
     @Override
     public synchronized boolean leave(JetrisGameMultiplayer game) throws RemoteException {
+        Player pRemove = null;
+
         for (Player p : players) {
             if (p.ownsGame(game)) {
-                players.remove(p);
+                pRemove = p;
+                break;
+                /*players.remove(p);
                 System.out.println("INFO: Player left!");
 
-                return true;
+                return true;*/
             }
+        }
+
+        if (pRemove != null) {
+            players.remove(pRemove);
+            System.out.println("INFO: Player left!");
+
+            return true;
         }
 
         System.out.println("WARNING: Player trying to leave is unknown!");

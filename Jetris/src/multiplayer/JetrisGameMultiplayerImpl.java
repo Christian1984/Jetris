@@ -19,6 +19,7 @@ public class JetrisGameMultiplayerImpl extends JetrisGame implements JetrisGameM
 
     private LinkedList<MultiplayerStatsView> multiplayerStatsViews;
 
+    //constructor
     public JetrisGameMultiplayerImpl() {
         multiplayerStatsViews = new LinkedList<MultiplayerStatsView>();
         //export object manually
@@ -32,6 +33,13 @@ public class JetrisGameMultiplayerImpl extends JetrisGame implements JetrisGameM
             //e.printStackTrace();
             System.out.println("WARNING: Cannot export object!");
         }
+    }
+
+    //disconnect on shutdown
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        leave();
     }
 
     //manage connection to server
@@ -69,7 +77,11 @@ public class JetrisGameMultiplayerImpl extends JetrisGame implements JetrisGameM
     }
 
     public void leave() {
-        //TODO
+        try {
+            service.leave(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     //notify service when a line was cleared
@@ -106,9 +118,9 @@ public class JetrisGameMultiplayerImpl extends JetrisGame implements JetrisGameM
     }
 
     private void fireMultiplayerStatsChanged(ArrayList<PlayerDump> playerStats) {
-        for (PlayerDump d : playerStats) {
+        /*for (PlayerDump d : playerStats) {
             System.out.println(d.toString());
-        }
+        }*/
 
         for (MultiplayerStatsView view : multiplayerStatsViews) {
             view.statsChanged(playerStats);
