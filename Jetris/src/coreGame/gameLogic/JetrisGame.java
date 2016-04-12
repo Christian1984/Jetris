@@ -267,7 +267,7 @@ public class JetrisGame {
 
     protected void shiftUp(int rowsToMove) {
         //shift tetromino
-        moveTetro(-rowsToMove, 0);
+		moveTetro(0, -rowsToMove);
 
         //shift landed blocks
         for (int row = 0; row < height; row++) {
