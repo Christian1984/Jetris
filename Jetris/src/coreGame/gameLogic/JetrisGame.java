@@ -10,18 +10,16 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class JetrisGame {
-    private final int width;
-    private final int height;
+	protected final int width;
+	protected final int height;
 
     private boolean gameStarted = false;
     private boolean gameOver = false;
 	
 	private Tetromino currTetro = null;
 
-    //private Block[][] blocks;
-    private Color[][] blocks;
+	protected Color[][] canvas;
 
-	
 	private int level = 1;	
 	private int score = 0;
 	private int linesCleared = 0;
@@ -44,9 +42,9 @@ public class JetrisGame {
 
         views = new LinkedList<JetrisView>();
 
-        //blocks = new Block[width][height];
-        blocks = new Color[width][height];
-    }
+		//canvas = new Block[width][height];
+		canvas = new Color[width][height];
+	}
 
     public JetrisGame() {
         this(10, 20);
@@ -69,8 +67,8 @@ public class JetrisGame {
 
     //public Block[][] getLandedBlocks() {
     public Color[][] getLandedBlocks() {
-        return blocks;
-    }
+		return canvas;
+	}
 	
 	public boolean isRunning() {
 		return gameStarted;
@@ -97,8 +95,8 @@ public class JetrisGame {
 		currTetro = Tetromino.makeRandomTetro(width / 2 - 1, 0);
 		fireModelChanged();
 	}
-	
-	private void moveTetro(int deltaX, int deltaY) {
+
+	protected void moveTetro(int deltaX, int deltaY) {
 		if (currTetro != null) {
 			boolean canMove = false;
 			
@@ -136,7 +134,7 @@ public class JetrisGame {
 			}
 			
 			if (b.inCanvas(width, height)) {
-				if (blocks[b.getX()][b.getY()] != null) {
+				if (canvas[b.getX()][b.getY()] != null) {
 					return true;
 				}
 			}
@@ -152,7 +150,7 @@ public class JetrisGame {
 			}
 			
 			if (b.getY() > 0) {
-				if (blocks[b.getX() + deltaX][b.getY()] != null) {
+				if (canvas[b.getX() + deltaX][b.getY()] != null) {
 					return false;
 				}
 			}
@@ -166,8 +164,8 @@ public class JetrisGame {
 			if (b.getY() + deltaY >= height) {
 				return false;
 			}
-			
-			if (blocks[b.getX()][b.getY() + deltaY] != null) {
+
+			if (canvas[b.getX()][b.getY() + deltaY] != null) {
 				return false;
 			}
 		}
@@ -184,9 +182,9 @@ public class JetrisGame {
 				return;
 			}
 
-            //blocks[b.getX()][b.getY()] = b;
-            blocks[b.getX()][b.getY()] = b.getColor();
-        }
+			//canvas[b.getX()][b.getY()] = b;
+			canvas[b.getX()][b.getY()] = b.getColor();
+		}
 
 		score += SCORETETROLANDED;
 		System.out.println("Tetro locked!");
@@ -201,7 +199,7 @@ public class JetrisGame {
 			boolean canClear = true;
 			
 			for (int col = 0; col < width; col++) {
-				if (blocks[col][row] == null) {
+				if (canvas[col][row] == null) {
 					canClear = false;
 					//System.out.println("Row " + row + " is not full: No Block found at (" + col + ", " + row + ")! Going to next row!");
 					break;
@@ -238,22 +236,22 @@ public class JetrisGame {
 			boolean allClear = true;
 			
 			for (int col = 0; col < width; col++) {
-				//System.out.println("Block [" + col + ", " + (row - 1) + "] (is " + blocks[col][row - 1] + ") copied to [" + col + ", " + row + "] (was " + blocks[col][row] + ")!");
+				//System.out.println("Block [" + col + ", " + (row - 1) + "] (is " + canvas[col][row - 1] + ") copied to [" + col + ", " + row + "] (was " + canvas[col][row] + ")!");
 				
 				//update position in array
 				if (row > 0) {
-					blocks[col][row] = blocks[col][row - 1];
+					canvas[col][row] = canvas[col][row - 1];
 				}
 				else {
-					blocks[col][row] = null;
+					canvas[col][row] = null;
 				}
 				
 				//update position stored in block
-                /*if (blocks[col][row] != null) {
-                    blocks[col][row].setPos(col, row);
+				/*if (canvas[col][row] != null) {
+                    canvas[col][row].setPos(col, row);
 				}*/
 
-                if (blocks[col][row] != null) {
+				if (canvas[col][row] != null) {
 					allClear = false;
 				}
 			}
@@ -265,36 +263,18 @@ public class JetrisGame {
 		}
 	}
 
-    protected void shiftUp(int rowsToMove) {
-        //shift tetromino
-		moveTetro(0, -rowsToMove);
-
-        //shift landed blocks
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < width; col++) {
-                if (row < height - rowsToMove) {
-                    //move blocks up
-                    blocks[col][row] = blocks[col][row + rowsToMove];
-                } else {
-                    //make sure that blocks below are deleted
-                    blocks[col][row] = null;
-                }
-            }
-        }
-    }
-
     protected void fillRows(int rows) {
         //create a gap for all rows to come
         int gap = new Random().nextInt(getWidth());
 
-        //fill all new blocks with same color
-        Color color = Color.lightGray;
+		//fill all new canvas with same color
+		Color color = Color.lightGray;
 
         for (int row = height - 1; row > height - (rows + 1); row--) {
             for (int col = 0; col < width; col++) {
                 if (col != gap) {
-                    blocks[col][row] = color;
-                }
+					canvas[col][row] = color;
+				}
             }
         }
     }
@@ -327,8 +307,8 @@ public class JetrisGame {
 	
 	//public methods
     public synchronized void start() {
-        //blocks = new Block[width][height];
-        blocks = new Color[width][height];
+		//canvas = new Block[width][height];
+		canvas = new Color[width][height];
 
         gameOver = false;
         gameStarted = true;
@@ -388,14 +368,14 @@ public class JetrisGame {
 			s += row + "|"; 
 			
 			for (int col = 0; col < width; col++) {
-				//draw landed blocks
-				if (blocks[col][row] != null) {
+				//draw landed canvas
+				if (canvas[col][row] != null) {
 					s += "X";
 				}
 				else {
 					boolean xDrawed = false;
-					
-					//draw blocks of current tetro
+
+					//draw canvas of current tetro
 					if (currTetro != null) {
 						for (Block b : currTetro.getBlocks()) {
 							if (col == b.getX() && row == b.getY()) {

@@ -10,6 +10,6 @@ public class LaunchSingleplayerCommandline {
         new CommandlineView(jetrisGame);
         new UdpController(jetrisGame);
 
-        //c.start();
+        jetrisGame.start();
     }
 }

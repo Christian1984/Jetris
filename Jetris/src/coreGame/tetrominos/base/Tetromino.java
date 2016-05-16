@@ -44,7 +44,7 @@ public abstract class Tetromino {
 	}*/
 	
 	/*public boolean isColliding(Block otherBlock) {
-		for (Block b : blocks) {
+		for (Block b : canvas) {
 			return b.isColliding(otherBlock);
 		}
 		

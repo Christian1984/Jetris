@@ -108,6 +108,24 @@ public class JetrisGameMultiplayerImpl extends JetrisGame implements JetrisGameM
         System.out.println("INFO: Added " + rows + " rows!");
     }
 
+    protected void shiftUp(int rowsToMove) {
+        //shift tetromino
+        moveTetro(0, -rowsToMove);
+
+        //shift landed canvas
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (row < height - rowsToMove) {
+                    //move canvas up
+                    canvas[col][row] = canvas[col][row + rowsToMove];
+                } else {
+                    //make sure that canvas below are deleted
+                    canvas[col][row] = null;
+                }
+            }
+        }
+    }
+
     //local mvc
     public synchronized void addMultiplayerStatsView(MultiplayerStatsView view) {
         multiplayerStatsViews.add(view);

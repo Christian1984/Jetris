@@ -38,19 +38,30 @@ public class ButtonController extends JPanel implements JetrisView {
 		bStart = new JButton("Start!");
 
 		JPanel p = new JPanel(new GridLayout(0, 1, 5, 5));
-		
-		p.add(new JLabel("Move"));
+		JPanel movePanel = new JPanel(new GridLayout(0, 2));
+		JPanel rotPanel = new JPanel(new GridLayout(0, 2));
+
+		movePanel.add(bMovLeft);
+		movePanel.add(bMovRight);
+		rotPanel.add(bRotCountclockwise);
+		rotPanel.add(bRotClockwise);
+
+		p.add(rotPanel);
+		p.add(movePanel);
+		p.add(bTick);
+
+		/*p.add(new JLabel("Move"));
 		p.add(bMovLeft);
 		p.add(bMovRight);
 		
 		p.add(new JLabel());
 		p.add(new JLabel("Rotate"));
 		p.add(bRotClockwise);
-		p.add(bRotCountclockwise);
+		p.add(bRotCountclockwise);*/
 		
 		p.add(new JLabel());
 		p.add(new JLabel("Gamemechanics"));
-		p.add(bTick);
+		//p.add(bTick);
 		p.add(bStart);
 		
 		add(p, BorderLayout.SOUTH);
